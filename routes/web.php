@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/ingredient', [IngredientController::class, 'index'])->name('ingredient.index');
     Route::get('/ingredient/orders', [IngredientController::class, 'orders'])->name('ingredient.orders');
+    Route::get('/ingredient/orders/delivered', [IngredientController::class, 'getDeliveredOrders'])->name('ingredient.delivered_orders');
     Route::patch('/ingredient/deliver/{ingredient}', [IngredientController::class, 'deliver'])->name('ingredient.deliver');
 });
 

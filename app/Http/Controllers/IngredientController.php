@@ -59,6 +59,29 @@ class IngredientController extends Controller
         return redirect(route('ingredient.orders'))->with('error', __('Ingredient can not be delivered, try again later'));
     }
 
+    public function getDeliveredOrders()
+    {
+        $response = Http::get(env('API_KITCHEN_ENDPOINT') . 'ingredients/delivered');
+
+        $orders = $response->json();
+        foreach ($orders as &$order) {
+            $ingredient = Ingredient::find($order['ingredient_id']);
+            $order['ingredient'] = $ingredient;
+        }
+
+        return view('ingredient.delivered', compact('orders'));
+    }
+
+    public function getIngredientsByOrder(Request $request): array
+    {
+        $ingredients_order = $request->ingredients_order;
+        $ingredients = [];
+        foreach ($ingredients_order as $ingredient_order) {
+            $ingredients[] = Ingredient::find($ingredient_order['ingredient_id']);
+        }
+        return $ingredients;
+    }
+
     private function deliverIngredient($ingredient, $order_id): bool
     {
         $response = Http::patch(env('API_KITCHEN_ENDPOINT') . 'ingredients/deliver', [
