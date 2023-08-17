@@ -84,6 +84,18 @@ class IngredientController extends Controller
         return $ingredients;
     }
 
+    public function getIngredientsByReceipt(Request $request): array
+    {
+        $ingredients_receipt = $request->ingredients_receipt;
+        $ingredients = [];
+        foreach ($ingredients_receipt as $ingredient_receipt) {
+            $ingredient = Ingredient::find($ingredient_receipt['ingredient_id']);
+            $ingredient->quantity = $ingredient_receipt['quantity']; // Receipt quantity
+            $ingredients[] = $ingredient;
+        }
+        return $ingredients;
+    }
+
     private function deliverIngredient($ingredient, $order_id): bool
     {
         $response = Http::patch(env('API_KITCHEN_ENDPOINT') . 'ingredients/deliver', [
