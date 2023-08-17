@@ -77,7 +77,9 @@ class IngredientController extends Controller
         $ingredients_order = $request->ingredients_order;
         $ingredients = [];
         foreach ($ingredients_order as $ingredient_order) {
-            $ingredients[] = Ingredient::find($ingredient_order['ingredient_id']);
+            $ingredient = Ingredient::find($ingredient_order['ingredient_id']);
+            $ingredient->quantity = $ingredient_order['quantity']; // Order quantity
+            $ingredients[] = $ingredient;
         }
         return $ingredients;
     }
