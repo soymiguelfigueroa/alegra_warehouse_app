@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('ingredients/get_by_order', [IngredientController::class, 'getIngredientsByOrder']);
-Route::get('ingredients/get_by_receipt', [IngredientController::class, 'getIngredientsByOrder']);
+Route::get('ingredients/get_by_receipt', [IngredientController::class, 'getIngredientsByReceipt']);
