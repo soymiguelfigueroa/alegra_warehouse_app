@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/ingredient/orders', [IngredientController::class, 'orders'])->name('ingredient.orders');
     Route::get('/ingredient/orders/delivered', [IngredientController::class, 'getDeliveredOrders'])->name('ingredient.delivered_orders');
     Route::patch('/ingredient/deliver/{ingredient}', [IngredientController::class, 'deliver'])->name('ingredient.deliver');
+
+    Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
 });
 
 require __DIR__.'/auth.php';
