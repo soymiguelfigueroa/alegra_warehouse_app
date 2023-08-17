@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Purchase extends Model
 {
@@ -13,4 +14,9 @@ class Purchase extends Model
         'quantity',
         'ingredient_id',
     ];
+
+    public function ingredient(): BelongsTo
+    {
+        return $this->belongsTo(Ingredient::class);
+    }
 }

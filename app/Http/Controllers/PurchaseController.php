@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Purchase;
+use Illuminate\Database\Eloquent\Collection;
 
 class PurchaseController extends Controller
 {
-    /**
-     * See purchase historical
-     *
-     * @return void
-     */
-    public function index()
+    public function getPurchases(): Collection
     {
-        
-    }
-    
-    public function buy_ingredient()
-    {
-
+        $purchases = Purchase::all();
+        foreach ($purchases as &$purchase) {
+            $purchase['ingredient'] = $purchase->ingredient;
+        }
+        return $purchases;
     }
 }
